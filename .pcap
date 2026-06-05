@@ -1,0 +1,20 @@
+pip install scapy
+
+from scapy.all import *
+
+# Create a demo ICMP (Ping) packet
+ping_packet = IP(dst="8.8.8.8")/ICMP()
+
+# Create a demo TCP/HTTP packet
+http_packet = IP(dst="93.184.216.34")/TCP(dport=80, flags="S")
+
+# Create a demo DNS query packet
+dns_packet = IP(dst="8.8.8.8")/UDP(dport=53)/DNS(rd=1, qd=DNSQR(qname="www.google.com"))
+
+# Combine the packets into a list
+packets = [ping_packet, http_packet, dns_packet]
+
+# Save the list of packets to a .pcap file
+wrpcap("task5_capture.pcap", packets)
+
+print("Demo task5_capture.pcap has been generated successfully!")
